@@ -1,3 +1,2 @@
 #!/bin/bash
-previous_dir=$(pwd -P)
-cd "$previous_dir"
+cd "$(pwd -P)"
