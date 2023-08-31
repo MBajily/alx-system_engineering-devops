@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1A -v | awk '{printf("%s%s", $0, (NR%2==0)?", ":"\n")}'
+ls -1A | sort -d -f --field-separator="/" --key=2 | awk '{ORS=(NR%2==0)?", ":"\n"}1'
