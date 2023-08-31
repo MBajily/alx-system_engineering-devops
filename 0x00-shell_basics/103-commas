@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1Ap | awk '{ORS=(NR%2==0)?", ":"\n"}1'
+echo $(printf '%s,' *) | sed 's/,$/\n/'
