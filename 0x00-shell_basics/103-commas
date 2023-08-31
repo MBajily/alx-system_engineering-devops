@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -1A | sort -d -f --field-separator="/" --key=2 | awk '{ORS=(NR%2==0)?", ":"\n"}1'
+ls -1Ap | awk '{ORS=(NR%2==0)?", ":"\n"}1'
