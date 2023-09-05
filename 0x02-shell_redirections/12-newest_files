@@ -1,2 +1,2 @@
-#1/bin/bash
+#!/bin/bash
 ls -lt | grep -v '^d' | head -n 10 | cut -d ' ' -f9- | sed 's/^.* //'
