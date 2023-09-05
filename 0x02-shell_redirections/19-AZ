@@ -1,2 +1,2 @@
 #!/bin/bash
-read -p "Please enter your input: " user_input && echo "$user_input" | tr 'AZ' 'ce'
+tr 'AZ' 'ce'
