@@ -1,2 +1,2 @@
 #!/bin/bash
-sed 's/A/Z/g; s/c/e/g'
+read -p "Please enter your input: " user_input && echo "$user_input" | tr 'AZ' 'ce'
