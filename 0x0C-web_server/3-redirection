@@ -7,7 +7,7 @@ apt-get update
 apt-get install -y nginx
 
 # Allow nginx HTTP
-sudo ufw allow 'nginx HTTP'
+sudo ufw allow 'Nginx HTTP'
 
 # Create a default HTML file
 echo "Hello World!" > /var/www/html/index.html
