@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+
 # fix apache server
 sudo service apache2 start

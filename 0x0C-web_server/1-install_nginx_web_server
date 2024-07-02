@@ -1,17 +1,16 @@
 #!/usr/bin/env bash
 
 # Update the package index
-apt-get update -y
+sudo apt-get update -y
 
 # Install Nginx
-apt-get install -y nginx
+sudo apt-get install -y nginx
 
 # Allow nginx HTTP
 sudo ufw allow 'Nginx HTTP'
 
 # Create a default HTML file
-echo "Hello World!" > /var/www/html/index.html
+sudo echo "Hello World!" > /var/www/html/index.html
 
 # Restart Nginx
-service nginx restart
-
+sudo service nginx restart
