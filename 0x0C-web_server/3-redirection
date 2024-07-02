@@ -12,7 +12,7 @@ sudo ufw allow 'Nginx HTTP'
 # Create a default HTML file
 echo "Hello World!" > /var/www/html/index.html
 
-sed -i '/listen 80 defauly_server/a rewrite ^/redirect_me https://elgaily.com permanent;' /etc/nginx/sites-available/default
+sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://elgaily.com permanent;' /etc/nginx/sites-available/default
 
 # Restart Nginx
 service nginx restart
