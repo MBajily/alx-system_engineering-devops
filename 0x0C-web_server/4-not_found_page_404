@@ -22,4 +22,3 @@ sudo sed -i '/listen 80 default_server/a error_page 404 /404.html;' /etc/nginx/s
 
 # Restart Nginx
 sudo service nginx restart
-

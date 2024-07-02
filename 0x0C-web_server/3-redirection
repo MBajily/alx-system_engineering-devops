@@ -16,4 +16,3 @@ sudo sed -i '/listen 80 default_server/a rewrite ^/redirect_me https://elgaily.c
 
 # Restart Nginx
 sudo service nginx restart
-
