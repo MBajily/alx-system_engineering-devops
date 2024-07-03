@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# Redirect to www.elgaily.com
 # Update the package index
 sudo apt-get update -y
 
