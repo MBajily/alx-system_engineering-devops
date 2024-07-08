@@ -2,9 +2,7 @@
 # and add a custom HTTP header
 
 exec {'update':
-  provider => shell,
-  command  => 'sudo apt-get -y update',
-  before   => Exec['install Nginx'],
+  command => '/usr/bin/apt-get update',
 }
 
 exec {'install Nginx':
