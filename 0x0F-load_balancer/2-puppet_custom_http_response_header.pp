@@ -10,12 +10,12 @@ exec {'update':
 exec {'install Nginx':
   provider => shell,
   command  => 'sudo apt-get -y install nginx',
-  before   => Exec['add_header'],
+  before   => Exec['HTTP header'],
 }
 
 package { 'nginx':
 	ensure => 'installed',
-	require => Exec['HTTP header']
+	require => Exec['update']
 }
 
 file {'/var/www/html/index.html':
