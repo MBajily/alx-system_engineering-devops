@@ -1,16 +1,16 @@
-# Setup New Ubuntu server with nginx
-# and add a custom HTTP header
+# Just as in task #0, we’d like you to automate the task of creating a custom HTTP header response, but with Puppet.
 
-exec { 'update system':
-    provider => shell,
-	command  => 'sudo apt-get -y update',
-	before   => Exec['install Nginx'],
+# The name of the custom HTTP header must be X-Served-By
+# The value of the custom HTTP header must be the hostname of the server Nginx is running on
+# Write 2-puppet_custom_http_response_header.pp so that it configures a brand new Ubuntu machine to the requirements asked in this task
+
+exec { 'update':
+    command => '/usr/bin/apt-get update',
 }
 
-exec {'install Nginx':
-  provider => shell,
-  command  => 'sudo apt-get -y install nginx',
-  before   => Exec['HTTP header'],
+package { 'Nginx':
+	ensure => 'installed',
+	require => Exec['update']
 }
 
 file {'/var/www/html/index.html':
@@ -22,12 +22,12 @@ exec {'redirect_me':
 	provider => 'shell'
 }
 
-exec {'HTTP header':
+exec {'install_header':
 	command => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
 	provider => 'shell'
 }
 
-exec { 'restart Nginx':
-  provider => shell,
-  command  => 'sudo service nginx restart',
+service {'Nginx':
+	ensure => running,
+	require => Package['Nginx']
 }
