@@ -4,30 +4,26 @@
 # The value of the custom HTTP header must be the hostname of the server Nginx is running on
 # Write 2-puppet_custom_http_response_header.pp so that it configures a brand new Ubuntu machine to the requirements asked in this task
 
-exec { 'update':
-    command => '/usr/bin/apt-get update',
+exec {'system update':
+  provider => shell,
+  command  => 'sudo apt-get -y update',
+  before   => Exec['install_nginx'],
 }
 
-package { 'Nginx':
-	ensure => 'installed',
-	require => Exec['update']
+exec {'install_nginx':
+  provider => shell,
+  command  => 'sudo apt-get -y install nginx',
+  before   => Exec['HTTP header'],
 }
 
-file {'/var/www/html/index.html':
-	content => 'Hello World!'
+exec { 'HTTP header':
+  provider    => shell,
+  environment => ["HOST=${hostname}"],
+  command     => 'sudo sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/nginx.conf',
+  before      => Exec['restart_Nginx'],
 }
 
-exec {'redirect_me':
-	command => 'sed -i "24i\	rewrite ^/redirect_me https://th3-gr00t.tk/ permanent;" /etc/nginx/sites-available/default',
-	provider => 'shell'
-}
-
-exec {'install_header':
-	command => 'sed -i "25i\	add_header X-Served-By \$hostname;" /etc/nginx/sites-available/default',
-	provider => 'shell'
-}
-
-service {'Nginx':
-	ensure => running,
-	require => Package['Nginx']
+exec { 'restart_Nginx':
+  provider => shell,
+  command  => 'sudo service nginx restart',
 }
