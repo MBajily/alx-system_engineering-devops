@@ -1,5 +1,7 @@
+#!/usr/bin/python3
 import sys
 import requests
+
 
 if __name__ == "__main__":
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(sys.argv[1])
