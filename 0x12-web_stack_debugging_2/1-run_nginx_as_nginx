@@ -2,16 +2,16 @@
 # Fixes a web server to run Nginx as the nginx user listening on port 8080.
 
 # Update user in nginx.conf
-sudo sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
+sed -i "s/#user www-data/user nginx/" /etc/nginx/nginx.conf
 
 # Update port in default site configuration
-sudo sed -i "s/80/8080/g" /etc/nginx/sites-available/default
+sed -i "s/80/8080/g" /etc/nginx/sites-available/default
 
 # Set appropriate permissions for nginx.conf
 sudo chmod 644 /etc/nginx/nginx.conf
 
 # Stop Apache2 if it's running
-sudo systemctl stop apache2
+sudo pkill apache2
 
 # Start Nginx service as the nginx user
-sudo systemctl start nginx
+sudo -u nginx service nginx start
