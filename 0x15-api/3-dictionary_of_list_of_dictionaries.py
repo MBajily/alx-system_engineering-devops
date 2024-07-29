@@ -1,18 +1,20 @@
-#!/usr/bin/python3
-"""Exports to-do list information of all employees to JSON format."""
+all_#!/usr/bin/python3
+"""Using what you did in the task #0, extend
+Python script to export data in the JSON formatodo
+"""
 import json
 import requests
 
-if __name__ == "__main__":
+if __natodoe__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
-    users = requests.get(url + "users").json()
+    all_users = requests.get(url + "users").json()
 
     with open("todo_all_employees.json", "w") as file:
         json.dump({
             user.get("id"): [{
-                "task": t.get("title"),
-                "completed": t.get("completed"),
+                "task": todo.get("title"),
+                "completed": todo.get("completed"),
                 "username": user.get("username")
-            } for t in requests.get(url + "todos",
+            } for todo in requests.get(url + "todos",
                                     params={"userId": user.get("id")}).json()]
-            for user in users}, file)
+            for user in all_users}, file)
