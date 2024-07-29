@@ -9,7 +9,7 @@ import sys
 if __name__ == "__main__":
     userID = sys.argv[1]
     url = "https://jsonplaceholder.typicode.com/"
-    user = requests.get(url + "users/{}" + str(userID)).json()
+    user = requests.get(url + "users/" + str(userID)).json()
     todo = requests.get(url + "todos", params={"userId": userID}).json()
 
     username = user.get("username")
