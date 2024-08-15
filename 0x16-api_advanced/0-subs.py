@@ -6,7 +6,7 @@ from requests import get as request_get
 def number_of_subscribers(subreddit):
     """Fetch and return the total number of subscribers for a given subred
     """
-    endpoint = f"https://www.reddit.com/r/{subreddit}/about.json"
+    endpoint = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     header = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"}
 
     response = request_get(endpoint, headers=header, allow_redirects=False)
