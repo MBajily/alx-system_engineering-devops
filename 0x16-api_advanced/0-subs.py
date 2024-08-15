@@ -1,5 +1,6 @@
 import requests
 
+
 def number_of_subscribers(subreddit):
     # Reddit API endpoint for subreddit information
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
@@ -20,6 +21,6 @@ def number_of_subscribers(subreddit):
         else:
             # If subreddit is invalid or any other error occurs, return 0
             return 0
-    except:
+    except Exception:
         # If any exception occurs (e.g., network error), return 0
         return 0
