@@ -1,27 +1,29 @@
 #!/usr/bin/python3
-import requests
+"""Module for retrieving subscriber count from Reddit subreddits."""
+from requests import get as request_get
 
 
 def number_of_subscribers(subreddit):
-    # Reddit API endpoint for subreddit information
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    """
+    Fetch and return the total number of subscribers for a given subreddit.
 
-    # Custom User-Agent to avoid Too Many Requests errors
-    headers = {'User-Agent': 'MyBot/1.0'}
+    Args:
+        subreddit (str): Name of the subreddit.
+
+    Returns:
+        int: Number of subscribers, or 0 if the subreddit is not found.
+    """
+    endpoint = f"https://www.reddit.com/r/{subreddit}/about.json"
+    header = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"}
+
+    response = request_get(endpoint, headers=header, allow_redirects=False)
+
+    if response.status_code != 200:
+        return 0
 
     try:
-        # Make GET request to the Reddit API
-        response = requests.get(url, headers=headers, allow_redirects=False)
+        subscriber_count = response.json()["data"]["subscribers"]
+    except (KeyError, ValueError):
+        subscriber_count = 0
 
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse JSON response
-            data = response.json()
-            # Extract and return the number of subscribers
-            return data['data']['subscribers']
-        else:
-            # If subreddit is invalid or any other error occurs, return 0
-            return 0
-    except Exception:
-        # If any exception occurs (e.g., network error), return 0
-        return 0
+    return subscriber_count
