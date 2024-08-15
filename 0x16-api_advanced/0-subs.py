@@ -8,15 +8,10 @@ def number_of_subscribers(subreddit):
     """
     endpoint = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     header = {"User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"}
-
     response = request_get(endpoint, headers=header, allow_redirects=False)
 
-    if response.status_code != 200:
+    if response.status_code == 404:
         return 0
 
-    try:
-        subscriber_count = response.json()["data"]["subscribers"]
-    except (KeyError, ValueError):
-        subscriber_count = 0
-
-    return subscriber_count
+    subscriber_count = response.json().get("data")
+    return subscriber_count.get("subscribers")
