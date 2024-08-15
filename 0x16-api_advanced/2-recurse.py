@@ -11,7 +11,7 @@ def recurse(subreddit, hot_list=[], after=None):
     Args:
         subreddit (str): The name of the subreddit to query.
         hot_list (list): The list to store the titles (default is empty list).
-        after (str): The id of the last post from the previous page (default None).
+        after (str): id of the last post from the previous page (default None).
 
     Returns:
         list: A list of all hot article titles.
