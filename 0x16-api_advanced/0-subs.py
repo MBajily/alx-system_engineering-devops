@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Module for retrieving subscriber count from Reddit subreddits."""
-from requests
+import requests
 
 
 def number_of_subscribers(subreddit):
