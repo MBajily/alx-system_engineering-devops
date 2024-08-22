@@ -1,26 +1,11 @@
 # Increase system-wide file descriptor limits
-file { '/etc/security/limits.conf':
-  ensure  => present,
-  content => template('limits/limits.conf.erb'),
-  mode    => '0644',
+exec {'replace-1':
+  provider => shell,
+  command  => 'sed -i "/holberton soft/s/nofile [0-9]*/nofile 50000/" /etc/security/limits.conf',
+  before   => Exec['increase-hard-limit'],
 }
 
-# Increase session-wide file descriptor limits
-file_line { 'increase-soft-file-limit':
-  path  => '/etc/security/limits.conf',
-  line  => '* soft nofile 50000',
-  match => '^\*\s+soft\s+nofile',
-}
-
-file_line { 'increase-hard-file-limit':
-  path  => '/etc/security/limits.conf',
-  line  => '* hard nofile 50000',
-  match => '^\*\s+hard\s+nofile',
-}
-
-# Ensure changes take effect immediately
-exec { 'reload-limits':
-  command     => '/sbin/sysctl -p',
-  refreshonly => true,
-  subscribe   => File['/etc/security/limits.conf'],
+exec {'increase-hard-limit':
+  provider => shell,
+  command  => 'sed -i "/holberton hard/s/nofile [0-9]*/nofile 50000/" /etc/security/limits.conf',
 }
