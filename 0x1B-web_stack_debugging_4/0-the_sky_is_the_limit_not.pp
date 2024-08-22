@@ -1,13 +1,12 @@
 # Sky is the limit, let's bring that limit higher
-file { '/etc/default/nginx':
-  ensure  => present,
-  content => template('nginx/default.erb'),
-  notify  => Service['nginx'],
+
+exec {'replace':
+  command  => 'sudo sed -i "s/ULIMIT=\"-n 15\"/ULIMIT=\"-n 4096\"/" /etc/default/nginx',
+  before   => Exec['restart'],
+  provider => shell,
 }
 
-service { 'nginx':
-  ensure     => running,
-  enable     => true,
-  hasrestart => true,
-  restart    => '/usr/sbin/service nginx reload',
+exec {'restart':
+  command  => 'sudo service nginx restart',
+  provider => shell,
 }
